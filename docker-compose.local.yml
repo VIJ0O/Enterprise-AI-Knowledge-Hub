@@ -1,0 +1,29 @@
+﻿# docker-compose.local.yml
+# --- Local Development: Only Ollama (no Postgres, no Qdrant) ------------------
+# Usage:
+#   docker compose -f docker-compose.local.yml up -d
+#   docker compose -f docker-compose.local.yml logs -f ollama
+#
+# First run downloads the Qwen2.5 model (~4.7 GB) automatically.
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: edi_ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_models:/root/.ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: unless-stopped
+    entrypoint: ["/bin/sh", "-c", "ollama serve & sleep 5 && ollama pull qwen2.5:7b-instruct-q4_K_M && wait"]
+
+volumes:
+  ollama_models:
+    driver: local

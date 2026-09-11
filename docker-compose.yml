@@ -1,0 +1,77 @@
+version: '3.8'
+
+services:
+  # 1. PostgreSQL Database for Users, Permissions, Metadata, and Auditing
+  postgres:
+    image: postgres:16-alpine
+    container_name: edi_globe_postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-edi_globe}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # 2. Qdrant Vector Search Engine
+  qdrant:
+    image: qdrant/qdrant:v1.9.0
+    container_name: edi_globe_qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    restart: unless-stopped
+
+  # 3. Enterprise FastAPI Backend with Qwen3-8B & BGE Hybrid Pipeline
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: edi_globe_backend
+    environment:
+      - APP_NAME=EDI-GLOBE Enterprise RAG Platform
+      - ENV=production
+      - HOST=0.0.0.0
+      - PORT=8000
+      - DATABASE_URL=postgresql+asyncpg://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-edi_globe}
+      - QDRANT_URL=http://qdrant:6333
+      - QDRANT_COLLECTION=edi_documents
+      - EMBED_MODEL_NAME=BAAI/bge-m3
+      - RERANKER_MODEL_NAME=BAAI/bge-reranker-v2-m3
+      - LLM_MODEL_NAME=Qwen/Qwen3-8B
+      - SECRET_KEY=${SECRET_KEY:-enterprise-secret-key-change-in-prod-min32}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data/uploads:/app/data/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+    restart: unless-stopped
+
+  # 4. Enterprise React Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: edi_globe_frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  qdrant_data:

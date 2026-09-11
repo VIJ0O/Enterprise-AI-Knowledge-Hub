@@ -1,0 +1,19 @@
+
+> ai-knowledge-hub-frontend@0.0.0 dev
+> vite --host 127.0.0.1
+
+Port 3000 is in use, trying another one...
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m411[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [2m10:25:35 pm[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+[2m10:25:41 pm[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+[2m10:25:51 pm[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m10:26:32 pm[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m10:26:47 pm[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/Sidebar.tsx, /src/index.css[22m
+[2m10:26:49 pm[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/ThreeScene.tsx, /src/index.css[22m
+[2m10:26:50 pm[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/ChatInterface.tsx, /src/index.css[22m
+[2m10:26:52 pm[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/DocumentUploader.tsx, /src/index.css[22m
+[2m10:27:15 pm[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/Dashboard.tsx, /src/index.css[22m
+[2m10:27:17 pm[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/Settings.tsx, /src/index.css[22m
+[2m10:27:19 pm[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index[2m10:27:[2m10:27:21 pm[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/index.css, /src/App[2m10:27:21 pm[22m [36m[1m[vite][22[2m10:28:47 pm[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/Dashboar[2m10:28:47 pm[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/Dashboard.tsx, /src/index.css[22m
